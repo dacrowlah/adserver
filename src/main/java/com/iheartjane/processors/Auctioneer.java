@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 
 @Singleton
 public class Auctioneer {
-  private static Logger logger = getLogger(Auctioneer.class);
   private final Comparator<Campaign> auctionComparator = Comparator
       .comparing(Campaign::getCpm, descendingFloatComparator)
       .thenComparing(Campaign::getEndTimestamp)
@@ -31,7 +30,6 @@ public class Auctioneer {
 
   public Optional<Campaign> accept(List<Campaign> candidates) {
     if (candidates.isEmpty()) {
-      logger.warn("Candidate List Empty!");
       return Optional.empty();
     }
 

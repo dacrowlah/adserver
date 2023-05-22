@@ -63,10 +63,6 @@ public class AdDecisionController {
       return HttpResponse.ok();
     }
 
-    if (logger.isDebugEnabled()) {
-      logger.debug("found winner: " + winner.get());
-    }
-
     var adResponse = responder.accept(winner.get());
 
     return HttpResponse.ok(adResponse);
