@@ -1,5 +1,7 @@
 package com.iheartjane.controllers;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import com.iheartjane.models.Campaign;
 import com.iheartjane.models.CampaignCreationResponse;
 import com.iheartjane.services.CampaignService;
@@ -12,6 +14,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 import jakarta.inject.Inject;
+import org.slf4j.Logger;
 
 /**
  * CampaignController is the api entrypoint for creating new campaigns (and in a production level

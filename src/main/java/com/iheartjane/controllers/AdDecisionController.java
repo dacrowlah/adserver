@@ -1,5 +1,7 @@
 package com.iheartjane.controllers;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.AdResponse;
 import com.iheartjane.processors.AdResponder;
@@ -13,12 +15,14 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 import jakarta.inject.Inject;
+import org.slf4j.Logger;
 
 /**
  * AdDecisionController is the entrypoint for ad requests
  */
 @Controller
 public class AdDecisionController {
+  private static Logger logger = getLogger(AdDecisionController.class);
   private final CandidateSelector candidateSelector;
   private final Auctioneer auctioneer;
   private final AdResponder responder;
@@ -55,7 +59,12 @@ public class AdDecisionController {
     if (winner.isEmpty()) {
       // if a partner requires a 204 NO CONTENT status, this would just become:
       // return HttpResponse.noContent();
+      logger.warn("No winner for request: " + adRequest);
       return HttpResponse.ok();
+    }
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("found winner: " + winner.get());
     }
 
     var adResponse = responder.accept(winner.get());

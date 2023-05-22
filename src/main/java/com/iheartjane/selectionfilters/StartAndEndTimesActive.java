@@ -2,17 +2,20 @@ package com.iheartjane.selectionfilters;
 
 import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.CURRENT_TIMESTAMP_NOT_IN_RANGE;
 import static java.util.Optional.of;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.Campaign;
 import jakarta.inject.Singleton;
 import java.util.Optional;
+import org.slf4j.Logger;
 
 /**
  * Ensures that the start/end times of a campaign cover the current point in time.
  */
 @Singleton
 public class StartAndEndTimesActive implements SelectionFilter {
+  private static Logger logger = getLogger(StartAndEndTimesActive.class);
 
   private static final Optional<FilterReason> REASON = of(CURRENT_TIMESTAMP_NOT_IN_RANGE);
 
@@ -32,6 +35,7 @@ public class StartAndEndTimesActive implements SelectionFilter {
       return Optional.empty();
     }
 
+    logger.warn("Campaign ({}) filtered: {}", campaign.getCampaignId(), REASON.get());
     return REASON;
   }
 }

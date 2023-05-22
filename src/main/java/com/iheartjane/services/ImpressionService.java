@@ -1,21 +1,27 @@
 package com.iheartjane.services;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import jakarta.inject.Singleton;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.slf4j.Logger;
 
 @Singleton
 public class ImpressionService {
+  private static Logger logger = getLogger(ImpressionService.class);
   private Map<Integer, AtomicInteger> campaignCapping = new ConcurrentHashMap<>();
   private Set<String> seenImpressionIds = ConcurrentHashMap.newKeySet();
 
   public void trackImpression(int campaignId, String impressionId) {
     if (seenImpressionIds.contains(impressionId)) {
-      // don't want to double count the impressions - this would cause advertisers to be double+
-      // charged
+      /*
+       * don't want to double count the impressions - this would cause advertisers to be double+
+       * charged.
+       */
+      logger.warn("Previously seen impression id, discarding {}", impressionId);
       return;
     }
 
