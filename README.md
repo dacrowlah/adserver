@@ -1,4 +1,4 @@
-## iheartjane interview: adserver 
+## interview: adserver 
 
 This project uses Micronaut as the basis of the implementation.  Micronaut is a lightweight 
 framework for implementing microservices in java
