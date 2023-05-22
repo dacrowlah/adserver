@@ -1,0 +1,12 @@
+micronaut:
+  application:
+    name: adserver
+  server:
+    port: 8000
+logger:
+  levels:
+    com.ihearjane: WARN
+netty:
+  default:
+    allocator:
+      max-order: 3

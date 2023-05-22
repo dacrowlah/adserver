@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.iheartjane
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, gradle, http-client, jackson-databind, java, java-application, junit, lombok, micronaut-build, mockito, netty-server, readme, shade, slf4j-simple, yaml]
