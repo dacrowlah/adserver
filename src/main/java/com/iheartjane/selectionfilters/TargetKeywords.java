@@ -26,7 +26,7 @@ public class TargetKeywords implements SelectionFilter {
         .findFirst();
 
     if (result.isEmpty()) {
-      logger.warn("No ad request keywords matched for campaign: {}", campaign);
+      logger.warn("CampaignId: {} Filtered: {}", campaign.getCampaignId(), REASON.get());
       return REASON;
     }
 

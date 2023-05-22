@@ -35,7 +35,7 @@ public class StartAndEndTimesActive implements SelectionFilter {
       return Optional.empty();
     }
 
-    logger.warn("Campaign ({}) filtered: {}", campaign.getCampaignId(), REASON.get());
+    logger.warn("CampaignId: {} Filtered: {}", campaign.getCampaignId(), REASON.get());
     return REASON;
   }
 }

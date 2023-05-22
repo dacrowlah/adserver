@@ -38,7 +38,7 @@ public class ImpressionCap implements SelectionFilter {
     var totalImpressions = impressionService.getCampaignImpressions(campaignId);
 
     if (totalImpressions >= campaign.getMaxImpression()) {
-      logger.warn("Campaign (id: {}) Filtered: {}", campaign.getCampaignId(), REASON.get());
+      logger.warn("CampaignId: {} Filtered: {}", campaign.getCampaignId(), REASON.get());
       return REASON;
     }
 
