@@ -1,5 +1,7 @@
 package com.iheartjane.controllers;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import com.iheartjane.services.CampaignService;
 import com.iheartjane.services.ImpressionService;
 import io.micronaut.context.annotation.Parameter;
@@ -7,12 +9,14 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import jakarta.inject.Inject;
+import org.slf4j.Logger;
 
 /**
  * ImpressionController is entrypoint for tracking ad impressions
  */
 @Controller
 public class ImpressionController {
+  private static Logger logger = getLogger(ImpressionController.class);
   private final CampaignService campaignService;
   private final ImpressionService impressionService;
 
@@ -43,6 +47,7 @@ public class ImpressionController {
     var campaign = campaignService.get(campaignId);
 
     if (campaign.isEmpty()) {
+      logger.warn("Failure recording impression, unknown campaign for id: {}", campaignId);
       return HttpResponse.badRequest();
     }
 

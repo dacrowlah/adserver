@@ -1,15 +1,18 @@
 package com.iheartjane.processors;
 
 import static java.util.Collections.sort;
+import static org.slf4j.LoggerFactory.getLogger;
 
 import com.iheartjane.models.Campaign;
 import jakarta.inject.Singleton;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
 
 @Singleton
 public class Auctioneer {
+  private static Logger logger = getLogger(Auctioneer.class);
   private final Comparator<Campaign> auctionComparator = Comparator
       .comparing(Campaign::getCpm, descendingFloatComparator)
       .thenComparing(Campaign::getEndTimestamp)
@@ -28,6 +31,7 @@ public class Auctioneer {
 
   public Optional<Campaign> accept(List<Campaign> candidates) {
     if (candidates.isEmpty()) {
+      logger.warn("Candidate List Empty!");
       return Optional.empty();
     }
 
