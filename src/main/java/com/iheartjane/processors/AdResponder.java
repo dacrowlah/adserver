@@ -3,12 +3,15 @@ package com.iheartjane.processors;
 import com.iheartjane.models.AdResponse;
 import com.iheartjane.models.Campaign;
 import com.iheartjane.services.ImpressionService;
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.util.UUID;
 
 @Singleton
 public class AdResponder {
   private final ImpressionService impressionService;
+
+  @Inject
   public AdResponder(ImpressionService impressionService) {
     this.impressionService = impressionService;
   }
