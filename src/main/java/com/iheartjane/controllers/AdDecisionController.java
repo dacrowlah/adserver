@@ -50,8 +50,6 @@ public class AdDecisionController {
    *         instead of an OK with blank body.
    */
   @Post("/addecision")
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
   public HttpResponse<AdResponse> getAd(@Body AdRequest adRequest) {
     var candidates = candidateSelector.accept(adRequest);
     var winner = auctioneer.accept(candidates);

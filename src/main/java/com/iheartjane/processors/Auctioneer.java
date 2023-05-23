@@ -1,14 +1,12 @@
 package com.iheartjane.processors;
 
 import static java.util.Collections.sort;
-import static org.slf4j.LoggerFactory.getLogger;
 
 import com.iheartjane.models.Campaign;
 import jakarta.inject.Singleton;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import org.slf4j.Logger;
 
 @Singleton
 public class Auctioneer {

@@ -1,7 +1,5 @@
 package com.iheartjane.controllers;
 
-import static org.slf4j.LoggerFactory.getLogger;
-
 import com.iheartjane.models.Campaign;
 import com.iheartjane.models.CampaignCreationResponse;
 import com.iheartjane.services.CampaignService;
@@ -14,7 +12,6 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
 import jakarta.inject.Inject;
-import org.slf4j.Logger;
 
 /**
  * CampaignController is the api entrypoint for creating new campaigns (and in a production level
@@ -43,8 +40,6 @@ public class CampaignController {
    * returned.  for an unsuccessful requet, an HTTP 400 BAD REQUEST is returned with an empty body
    */
   @Post("/campaign")
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
   public HttpResponse<CampaignCreationResponse> create(@Body Campaign campaign) {
 
     var validationErrors = validationProcessor.accept(campaign);
