@@ -1,5 +1,7 @@
 package com.iheartjane.validators;
 
+import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.DUPLICATE_CAMPAIGN_EXISTS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.Campaign;
@@ -31,6 +33,7 @@ public class DuplicateCampaignValidatorTest {
     campaignService.addCampaign(basicCampaign);
     var reason = validator.accept(basicCampaign);
     assertTrue(reason.isPresent());
+    assertEquals(DUPLICATE_CAMPAIGN_EXISTS, reason.get());
   }
 
   @Test

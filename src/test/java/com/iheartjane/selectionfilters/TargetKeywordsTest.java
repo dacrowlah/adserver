@@ -1,5 +1,7 @@
 package com.iheartjane.selectionfilters;
 
+import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.MISSING_TARGETED_KEYWORDS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.AdRequest;
@@ -44,5 +46,6 @@ public class TargetKeywordsTest {
 
     var result = filter.accept(campaign, adRequest);
     assertTrue(result.isPresent());
+    assertEquals(MISSING_TARGETED_KEYWORDS, result.get());
   }
 }

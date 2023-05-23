@@ -1,5 +1,7 @@
 package com.iheartjane.validators;
 
+import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.INVALID_END_TIME;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.Campaign;
@@ -18,6 +20,7 @@ public class EndTimeValidatorTest {
     c.setEndTimestamp(-3l);
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(INVALID_END_TIME, reason.get());
   }
 
   @Test
@@ -26,6 +29,7 @@ public class EndTimeValidatorTest {
     c.setEndTimestamp(0l);
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(INVALID_END_TIME, reason.get());
   }
 
   @Test
@@ -35,6 +39,7 @@ public class EndTimeValidatorTest {
     c.setStartTimestamp(3l);
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(INVALID_END_TIME, reason.get());
   }
 
   @Test

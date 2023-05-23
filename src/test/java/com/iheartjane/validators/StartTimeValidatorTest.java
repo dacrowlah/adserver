@@ -1,5 +1,7 @@
 package com.iheartjane.validators;
 
+import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.INVALID_START_TIME;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.Campaign;
@@ -29,6 +31,7 @@ public class StartTimeValidatorTest {
     c.setEndTimestamp(2L);
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(INVALID_START_TIME, reason.get());
   }
 
   @Test
@@ -38,5 +41,6 @@ public class StartTimeValidatorTest {
     c.setEndTimestamp(2L);
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(INVALID_START_TIME, reason.get());
   }
 }

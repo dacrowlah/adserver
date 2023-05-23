@@ -1,5 +1,7 @@
 package com.iheartjane.validators;
 
+import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.MISSING_KEYWORDS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.Campaign;
@@ -19,6 +21,7 @@ public class KeywordsValidatorTest {
     c.setTargetKeywords(Set.of());
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(MISSING_KEYWORDS, reason.get());
   }
 
   @Test
