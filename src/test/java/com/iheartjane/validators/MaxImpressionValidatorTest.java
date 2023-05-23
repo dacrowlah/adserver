@@ -1,5 +1,7 @@
 package com.iheartjane.validators;
 
+import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.INVALID_MAX_IMPRESSIONS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.Campaign;
@@ -27,5 +29,6 @@ public class MaxImpressionValidatorTest {
     c.setMaxImpression(-1);
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(INVALID_MAX_IMPRESSIONS, reason.get());
   }
 }

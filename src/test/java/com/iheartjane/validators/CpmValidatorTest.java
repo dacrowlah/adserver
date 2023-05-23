@@ -1,5 +1,7 @@
 package com.iheartjane.validators;
 
+import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.INVALID_CPM;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.Campaign;
@@ -27,6 +29,7 @@ public class CpmValidatorTest {
     c.setCpm(0f);
     var reason = validator.accept(c);
     assertTrue(reason.isPresent());
+    assertEquals(INVALID_CPM, reason.get());
   }
 
   @Test
@@ -36,5 +39,4 @@ public class CpmValidatorTest {
     var reason = validator.accept(c);
     assertTrue(reason.isEmpty());
   }
-
 }

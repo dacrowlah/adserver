@@ -1,5 +1,8 @@
 package com.iheartjane.selectionfilters;
 
+import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.CURRENT_TIMESTAMP_NOT_IN_RANGE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.AdRequest;
@@ -14,7 +17,7 @@ public class StartAndEndTimesActiveTest {
   StartAndEndTimesActive filter;
 
   @Test
-  public void testSuccess() {
+  public void testTimestampInRangeSuccess() {
     AdRequest adRequest = new AdRequest();
     long currentEpoch = System.currentTimeMillis() / 1000;
     long start = currentEpoch - 10;
@@ -28,7 +31,7 @@ public class StartAndEndTimesActiveTest {
   }
 
   @Test
-  public void testFailure() {
+  public void testTimestampNotInRangeFailure() {
     AdRequest adRequest = new AdRequest();
     long start = 1;
     long end = 2;
@@ -36,5 +39,7 @@ public class StartAndEndTimesActiveTest {
     c.setStartTimestamp(start);
     c.setEndTimestamp(end);
     var result = filter.accept(c, adRequest);
+    assertFalse(result.isEmpty());
+    assertEquals(CURRENT_TIMESTAMP_NOT_IN_RANGE, result.get());
   }
 }

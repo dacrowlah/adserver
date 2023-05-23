@@ -1,5 +1,7 @@
 package com.iheartjane.selectionfilters;
 
+import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.CAMPAIGN_IMPRESSION_CAP_HIT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.AdRequest;
@@ -46,5 +48,6 @@ public class ImpressionCapTest {
     impressionService.trackImpression(1001, "fake-uuid");
     var result = filter.accept(campaign, new AdRequest());
     assertTrue(result.isPresent());
+    assertEquals(CAMPAIGN_IMPRESSION_CAP_HIT, result.get());
   }
 }
