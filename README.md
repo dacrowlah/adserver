@@ -20,3 +20,5 @@ Clone the repo locally, and cd into the project directory.
 ## Troubleshooting
 If you attempt to run it, and you get an error about JDK 17 being unavailable, 
 this link has information to assist in fixing: https://medium.com/@manvendrapsingh/installing-many-jdk-versions-on-macos-dfc177bc8c2b  
+
+If you attempt to run the tests and get an error about port 8000 already being in use, ensure you're not running the application already in another terminal window.
