@@ -5,12 +5,9 @@ import com.iheartjane.models.CampaignCreationResponse;
 import com.iheartjane.services.CampaignService;
 import com.iheartjane.processors.CampaignValidationProcessor;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
-import io.micronaut.http.annotation.Produces;
 import jakarta.inject.Inject;
 
 /**
