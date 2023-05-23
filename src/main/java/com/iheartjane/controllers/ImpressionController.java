@@ -44,10 +44,8 @@ public class ImpressionController {
    */
   @Get("/impression")
   public HttpResponse impression(@Parameter Integer campaignId, @Parameter String impressionId) {
-    var campaign = campaignService.get(campaignId);
-
-    if (campaign.isEmpty()) {
-      logger.warn("Failure recording impression, unknown campaign for id: {}", campaignId);
+    if (impressionService.isNotValidImpression(campaignId, impressionId)) {
+      logger.warn("Unknown impression signature: {}:{}", campaignId, impressionId);
       return HttpResponse.badRequest();
     }
 
