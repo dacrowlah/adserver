@@ -2,7 +2,7 @@ package com.iheartjane.controllers;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-import com.iheartjane.services.CampaignService;
+import com.iheartjane.models.ImpressionSignature;
 import com.iheartjane.services.ImpressionService;
 import io.micronaut.context.annotation.Parameter;
 import io.micronaut.http.HttpResponse;
@@ -17,12 +17,10 @@ import org.slf4j.Logger;
 @Controller
 public class ImpressionController {
   private static Logger logger = getLogger(ImpressionController.class);
-  private final CampaignService campaignService;
   private final ImpressionService impressionService;
 
   @Inject
-  public ImpressionController(CampaignService campaignService, ImpressionService impressionService) {
-    this.campaignService = campaignService;
+  public ImpressionController(ImpressionService impressionService) {
     this.impressionService = impressionService;
   }
 
@@ -44,12 +42,16 @@ public class ImpressionController {
    */
   @Get("/impression")
   public HttpResponse impression(@Parameter Integer campaignId, @Parameter String impressionId) {
-    if (impressionService.isNotValidImpression(campaignId, impressionId)) {
-      logger.warn("Unknown impression signature: {}:{}", campaignId, impressionId);
+    var signature = new ImpressionSignature(campaignId, impressionId);
+
+    if (impressionService.isNotValidImpression(signature)) {
+      // in a production version, this would also have datadog metrics/alerts
+      // when this happens... this would seem to indicate another problem.
+      logger.warn("Unknown impression signature: {}", signature);
       return HttpResponse.badRequest();
     }
 
-    impressionService.trackImpression(campaignId, impressionId);
+    impressionService.trackImpression(signature);
     return HttpResponse.ok();
   }
 }

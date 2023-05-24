@@ -2,6 +2,7 @@ package com.iheartjane.processors;
 
 import com.iheartjane.models.AdResponse;
 import com.iheartjane.models.Campaign;
+import com.iheartjane.models.ImpressionSignature;
 import com.iheartjane.services.ImpressionService;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -27,11 +28,14 @@ public class AdResponder {
   }
 
   private String buildImpressionUrl(Campaign campaign) {
-    var impressionId = UUID.randomUUID().toString();
-    var campaignId = campaign.getCampaignId();
 
-    impressionService.recordSentImpression(campaignId, impressionId);
+    var signature = new ImpressionSignature(
+        campaign.getCampaignId(),
+        UUID.randomUUID().toString()
+    );
 
-    return String.format(IMPRESSION_URL_FORMAT, campaignId, impressionId);
+    impressionService.recordSentImpression(signature);
+
+    return String.format(IMPRESSION_URL_FORMAT, signature.campaignId(), signature.impressionId());
   }
 }
