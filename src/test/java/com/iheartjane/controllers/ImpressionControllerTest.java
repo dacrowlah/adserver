@@ -2,6 +2,8 @@ package com.iheartjane.controllers;
 
 import static com.iheartjane.fixtures.Campaigns.TARGET_KEYWORDS;
 import static com.iheartjane.fixtures.Campaigns.validCampaign;
+import static io.micronaut.http.HttpStatus.BAD_REQUEST;
+import static io.micronaut.http.HttpStatus.OK;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,7 +14,6 @@ import com.iheartjane.models.ImpressionSignature;
 import com.iheartjane.services.CampaignService;
 import com.iheartjane.services.ImpressionService;
 import io.micronaut.http.HttpRequest;
-import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
@@ -68,7 +69,7 @@ public class ImpressionControllerTest {
 
     var response = impressionController.impression(signature);
 
-    assertEquals(HttpStatus.OK, response.status());
+    assertEquals(OK, response.status());
   }
 
   @Test
@@ -77,7 +78,7 @@ public class ImpressionControllerTest {
     var fakeSignature = new ImpressionSignature(fakeCampaignId, fakeUUID);
     var response = impressionController.impression(fakeSignature);
 
-    assertEquals(HttpStatus.BAD_REQUEST, response.status());
+    assertEquals(BAD_REQUEST, response.status());
   }
 
   @Test
@@ -97,7 +98,7 @@ public class ImpressionControllerTest {
     var response = impressionController.impression(signature);
 
     assertEquals(1, impressionService.getCampaignImpressions(adResponse.getCampaignId()));
-    assertEquals(HttpStatus.OK, response.status());
+    assertEquals(OK, response.status());
 
     var fakeSignature = new ImpressionSignature(adResponse.getCampaignId(), fakeUUID);
     impressionController.impression(fakeSignature);
@@ -118,7 +119,7 @@ public class ImpressionControllerTest {
     var request = HttpRequest.GET(requestUrl);
     var response = client.toBlocking().exchange(request);
 
-    assertEquals(HttpStatus.OK, response.status());
+    assertEquals(OK, response.status());
   }
 
   @Test
@@ -133,6 +134,25 @@ public class ImpressionControllerTest {
 
     var request = HttpRequest.GET(requestUrl);
     assertThrows(HttpClientResponseException.class, () -> client.toBlocking().retrieve(request));
+  }
+
+  @Test
+  public void testImpressionSignatureSuccessReturnStatus() {
+    var sig = new ImpressionSignature(1001, "fake-impression-id2");
+    impressionService.recordSentImpression(sig);
+
+    var response = impressionController.impression(sig);
+
+    assertEquals(OK, response.status());
+  }
+
+  @Test
+  public void testImpressionSignatureFailureReturnStatus() {
+    impressionService.clear();
+    var sig = new ImpressionSignature(1001, "fake-impression-id2");
+    var response = impressionController.impression(sig);
+
+    assertEquals(BAD_REQUEST, response.status());
   }
 
   private static Optional<String> getImpressionId(String impressionUrl) throws MalformedURLException {
