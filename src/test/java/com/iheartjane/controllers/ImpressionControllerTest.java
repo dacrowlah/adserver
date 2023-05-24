@@ -2,12 +2,16 @@ package com.iheartjane.controllers;
 
 import static com.iheartjane.fixtures.Campaigns.TARGET_KEYWORDS;
 import static com.iheartjane.fixtures.Campaigns.validCampaign;
+import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.iheartjane.models.AdRequest;
+import com.iheartjane.models.ImpressionSignature;
 import com.iheartjane.services.CampaignService;
 import com.iheartjane.services.ImpressionService;
+import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
@@ -56,10 +60,12 @@ public class ImpressionControllerTest {
     var impressionId = getImpressionId(adResponse.getImpressionUrl());
     assertFalse(impressionId.isEmpty());
 
-    var response = impressionController.impression(
+    var signature = new ImpressionSignature(
         adResponse.getCampaignId(),
         impressionId.get()
     );
+
+    var response = impressionController.impression(signature);
 
     assertEquals(HttpStatus.OK, response.status());
   }
@@ -67,7 +73,8 @@ public class ImpressionControllerTest {
   @Test
   public void testInvalidImpression() {
     var fakeCampaignId = 2;
-    var response = impressionController.impression(fakeCampaignId, fakeUUID);
+    var fakeSignature = new ImpressionSignature(fakeCampaignId, fakeUUID);
+    var response = impressionController.impression(fakeSignature);
 
     assertEquals(HttpStatus.BAD_REQUEST, response.status());
   }
@@ -85,16 +92,54 @@ public class ImpressionControllerTest {
 
     assertFalse(impressionId.isEmpty());
 
-    var response = impressionController.impression(
-        adResponse.getCampaignId(),
-        impressionId.get()
-    );
+    var signature = new ImpressionSignature(adResponse.getCampaignId(), impressionId.get());
+    var response = impressionController.impression(signature);
 
     assertEquals(1, impressionService.getCampaignImpressions(adResponse.getCampaignId()));
     assertEquals(HttpStatus.OK, response.status());
 
-    impressionController.impression(adResponse.getCampaignId(), fakeUUID);
+    var fakeSignature = new ImpressionSignature(adResponse.getCampaignId(), fakeUUID);
+    impressionController.impression(fakeSignature);
     assertEquals(1, impressionService.getCampaignImpressions(adResponse.getCampaignId()));
+  }
+
+  @Test
+  public void testHttpCallWithUrlParams() throws MalformedURLException {
+    var campaign = validCampaign();
+    var adRequest = new AdRequest();
+    adRequest.setKeywords(TARGET_KEYWORDS);
+
+    campaignService.addCampaign(campaign);
+
+    var adResponse = adDecisionController.getAd(adRequest).body();
+    var campaignId = adResponse.getCampaignId();
+    var impressionId = getImpressionId(adResponse.getImpressionUrl());
+
+    assertFalse(impressionId.isEmpty());
+
+    var requestUrl = format("/impression?campaignId=%s&impressionId=%s", campaignId, impressionId) ;
+    var request = HttpRequest.GET(requestUrl);
+    var response = client.toBlocking().retrieve(request);
+
+    assertNotNull(response);
+
+  }
+
+  @Test
+  public void testSuccess() {
+    var sig = new ImpressionSignature(1001, "fake-impression-id2");
+    impressionService.recordSentImpression(sig);
+
+    var requestUrl = format(
+        "/impression?campaignId=%s&impressionId=%s",
+        sig.campaignId(),
+        sig.impressionId()
+    );
+
+    var request = HttpRequest.GET(requestUrl);
+    var response = client.toBlocking().exchange(request);
+
+    assertEquals(HttpStatus.OK, response.status());
   }
 
   private static Optional<String> getImpressionId(String impressionUrl) throws MalformedURLException {
