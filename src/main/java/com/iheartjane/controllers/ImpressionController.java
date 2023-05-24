@@ -4,22 +4,19 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import com.iheartjane.models.ImpressionSignature;
 import com.iheartjane.services.ImpressionService;
-import io.micronaut.context.annotation.Parameter;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
-import jakarta.inject.Inject;
 import org.slf4j.Logger;
 
 /**
  * ImpressionController is entrypoint for tracking ad impressions
  */
-@Controller
+@Controller("/impression")
 public class ImpressionController {
   private static Logger logger = getLogger(ImpressionController.class);
   private final ImpressionService impressionService;
 
-  @Inject
   public ImpressionController(ImpressionService impressionService) {
     this.impressionService = impressionService;
   }
@@ -40,10 +37,8 @@ public class ImpressionController {
    * response is sent with a blank body.  In the event of an invalid event happening, a
    * 400 BAD REQUEST response is sent.
    */
-  @Get("/impression")
-  public HttpResponse impression(@Parameter Integer campaignId, @Parameter String impressionId) {
-    var signature = new ImpressionSignature(campaignId, impressionId);
-
+  @Get(uri="/{?signature*}")
+  public HttpResponse impression(ImpressionSignature signature) {
     if (impressionService.isNotValidImpression(signature)) {
       // in a production version, this would also have datadog metrics/alerts
       // when this happens... this would seem to indicate another problem.

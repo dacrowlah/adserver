@@ -46,6 +46,7 @@ public class ImpressionService {
   public void clear() {
     campaignCapping.clear();
     seenImpressionSignatures.clear();
+    sentImpressionSignatures.clear();
   }
 
   public void recordSentImpression(ImpressionSignature signature) {
