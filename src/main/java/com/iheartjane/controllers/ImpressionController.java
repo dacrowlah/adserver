@@ -23,15 +23,10 @@ public class ImpressionController {
 
   /**
    * Tracks ad impressions
-   * Note: to implement capping by user/device/otherwise specific client, we
-   *       would need to add a third (or more?) parameter to this for the client identifier
+   * Note: to implement capping by user/device/otherwise specific client, we would need to add a
+   * third (or more?) parameter to this for the client identifier.
    *
-   * @param campaignId the campaign for this impression
-   *
-   * @param impressionId a unique identifier to de-duplicate impressions and avoid double counting.
-   *                     in a production level system there are different ways to do this, depending
-   *                     on what data is available... sometimes it can be a compound value of
-   *                     various other pieces of data about the request.
+   * @param signature the signature for this impression, consisting of campaignId and impressionId.
    *
    * @return In the event of a valid impression tracking event happening, an HTTP 200 OK
    * response is sent with a blank body.  In the event of an invalid event happening, a
