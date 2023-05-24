@@ -5,6 +5,7 @@ import static com.iheartjane.fixtures.Campaigns.validCampaign;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.ImpressionSignature;
@@ -14,6 +15,7 @@ import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import java.net.MalformedURLException;
@@ -103,7 +105,7 @@ public class ImpressionControllerTest {
   }
 
   @Test
-  public void testSuccess() {
+  public void testUrlParamPojoBindingSuccess() {
     var sig = new ImpressionSignature(1001, "fake-impression-id2");
     impressionService.recordSentImpression(sig);
 
@@ -117,6 +119,20 @@ public class ImpressionControllerTest {
     var response = client.toBlocking().exchange(request);
 
     assertEquals(HttpStatus.OK, response.status());
+  }
+
+  @Test
+  public void testUrlParamPojoBindingFailure() {
+    var sig = new ImpressionSignature(1001, "fake-impression-id2");
+
+    var requestUrl = format(
+        "/impression?campaignId=%s&impressionId=%s",
+        sig.campaignId(),
+        sig.impressionId()
+    );
+
+    var request = HttpRequest.GET(requestUrl);
+    assertThrows(HttpClientResponseException.class, () -> client.toBlocking().retrieve(request));
   }
 
   private static Optional<String> getImpressionId(String impressionUrl) throws MalformedURLException {
