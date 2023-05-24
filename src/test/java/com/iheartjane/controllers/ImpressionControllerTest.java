@@ -148,7 +148,6 @@ public class ImpressionControllerTest {
 
   @Test
   public void testImpressionSignatureFailureReturnStatus() {
-    impressionService.clear();
     var sig = new ImpressionSignature(1001, "fake-impression-id2");
     var response = impressionController.impression(sig);
 
