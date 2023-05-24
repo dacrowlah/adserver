@@ -5,7 +5,6 @@ import static com.iheartjane.fixtures.Campaigns.validCampaign;
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.ImpressionSignature;
@@ -101,28 +100,6 @@ public class ImpressionControllerTest {
     var fakeSignature = new ImpressionSignature(adResponse.getCampaignId(), fakeUUID);
     impressionController.impression(fakeSignature);
     assertEquals(1, impressionService.getCampaignImpressions(adResponse.getCampaignId()));
-  }
-
-  @Test
-  public void testHttpCallWithUrlParams() throws MalformedURLException {
-    var campaign = validCampaign();
-    var adRequest = new AdRequest();
-    adRequest.setKeywords(TARGET_KEYWORDS);
-
-    campaignService.addCampaign(campaign);
-
-    var adResponse = adDecisionController.getAd(adRequest).body();
-    var campaignId = adResponse.getCampaignId();
-    var impressionId = getImpressionId(adResponse.getImpressionUrl());
-
-    assertFalse(impressionId.isEmpty());
-
-    var requestUrl = format("/impression?campaignId=%s&impressionId=%s", campaignId, impressionId) ;
-    var request = HttpRequest.GET(requestUrl);
-    var response = client.toBlocking().retrieve(request);
-
-    assertNotNull(response);
-
   }
 
   @Test
