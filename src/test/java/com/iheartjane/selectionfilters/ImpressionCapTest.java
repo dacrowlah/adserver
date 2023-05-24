@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.Campaign;
+import com.iheartjane.models.ImpressionSignature;
 import com.iheartjane.services.CampaignService;
 import com.iheartjane.services.ImpressionService;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
@@ -45,7 +46,8 @@ public class ImpressionCapTest {
   @Test
   public void testImpressionCapHit() {
     campaignService.addCampaign(campaign);
-    impressionService.trackImpression(1001, "fake-uuid");
+    var signature = new ImpressionSignature(1001, "fake-uuid");
+    impressionService.trackImpression(signature);
     var result = filter.accept(campaign, new AdRequest());
     assertTrue(result.isPresent());
     assertEquals(CAMPAIGN_IMPRESSION_CAP_HIT, result.get());

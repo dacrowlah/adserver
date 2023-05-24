@@ -2,6 +2,7 @@ package com.iheartjane.services;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+import com.iheartjane.models.ImpressionSignature;
 import jakarta.inject.Singleton;
 import java.util.Map;
 import java.util.Set;
@@ -13,11 +14,10 @@ import org.slf4j.Logger;
 public class ImpressionService {
   private static Logger logger = getLogger(ImpressionService.class);
   private Map<Integer, AtomicInteger> campaignCapping = new ConcurrentHashMap<>();
-  private Set<String> seenImpressionSignatures = ConcurrentHashMap.newKeySet();
-  private Set<String> sentImpressionSignatures = ConcurrentHashMap.newKeySet();
+  private Set<ImpressionSignature> seenImpressionSignatures = ConcurrentHashMap.newKeySet();
+  private Set<ImpressionSignature> sentImpressionSignatures = ConcurrentHashMap.newKeySet();
 
-  public void trackImpression(int campaignId, String impressionId) {
-    var signature = buildImpressionSignature(campaignId, impressionId);
+  public void trackImpression(ImpressionSignature signature) {
     if (seenImpressionSignatures.contains(signature)) {
       /*
        * don't want to double count the impressions - this would cause advertisers to be double+
@@ -29,7 +29,7 @@ public class ImpressionService {
 
     seenImpressionSignatures.add(signature);
     campaignCapping
-        .computeIfAbsent(campaignId, c -> new AtomicInteger(0))
+        .computeIfAbsent(signature.campaignId(), c -> new AtomicInteger(0))
         .incrementAndGet();
   }
 
@@ -48,17 +48,11 @@ public class ImpressionService {
     seenImpressionSignatures.clear();
   }
 
-  public void recordSentImpression(Integer campaignId, String impressionId) {
-    var signature = buildImpressionSignature(campaignId, impressionId);
+  public void recordSentImpression(ImpressionSignature signature) {
     sentImpressionSignatures.add(signature);
   }
 
-  public boolean isNotValidImpression(Integer campaignId, String impressionId) {
-    var signature = buildImpressionSignature(campaignId, impressionId);
+  public boolean isNotValidImpression(ImpressionSignature signature) {
     return !sentImpressionSignatures.contains(signature);
-  }
-
-  private String buildImpressionSignature(Integer campaignId, String impressionId) {
-    return campaignId + ":" + impressionId;
   }
 }
