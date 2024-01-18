@@ -11,5 +11,7 @@ public interface SelectionFilter {
     CAMPAIGN_IMPRESSION_CAP_HIT,
   }
 
+  String CAMPAIGN_ID_FILTERED_FOR = "CampaignId: {} Filtered: {}";
+
   public Optional<FilterReason> accept(Campaign campaign, AdRequest adRequest);
 }

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Singleton
 public class CandidateSelector {
   private final CampaignService campaignService;
-  public List<SelectionFilter> selectionFilters = new LinkedList<>();
+  private List<SelectionFilter> selectionFilters = new LinkedList<>();
 
   @Inject
   public CandidateSelector(
@@ -50,7 +50,7 @@ public class CandidateSelector {
 
   /*
    * here we can do one of two things, find all reasons that a campaign would be filtered,
-   * or just find the first reason it's filtered (and not check any subsequent reasons.
+   * or just find the first reason it's filtered and not check any subsequent reasons.
    * in a high request volume system it's preferable to only check the first and save compute
    * costs.
    */

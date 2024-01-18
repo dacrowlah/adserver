@@ -16,8 +16,8 @@ public class KeywordsValidator implements CampaignValidator {
 
   @Override
   public Optional<ValidationFailureReason> accept(Campaign campaign) {
-    if (campaign.getTargetKeywords().isEmpty()) {
-      logger.warn("Campaign Validation Failure: {}", REASON.get());
+    if (campaign.hasNoKeywords()) {
+      logger.warn(CAMPAIGN_VALIDATION_FAILURE_MSG, REASON.get());
       return REASON;
     }
 

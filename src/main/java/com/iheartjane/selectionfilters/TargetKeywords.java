@@ -26,7 +26,7 @@ public class TargetKeywords implements SelectionFilter {
         .findFirst();
 
     if (result.isEmpty()) {
-      logger.warn("CampaignId: {} Filtered: {}", campaign.getCampaignId(), REASON.get());
+      logger.warn(CAMPAIGN_ID_FILTERED_FOR, campaign.getCampaignId(), REASON.get());
       return REASON;
     }
 

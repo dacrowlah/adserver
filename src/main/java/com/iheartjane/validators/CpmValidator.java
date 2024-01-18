@@ -16,7 +16,7 @@ public class CpmValidator implements CampaignValidator {
   @Override
   public Optional<ValidationFailureReason> accept(Campaign campaign) {
     if (campaign.getCpm() <= 0) {
-      logger.warn("Campaign Validation Failure: {}", REASON.get());
+      logger.warn(CAMPAIGN_VALIDATION_FAILURE_MSG, REASON.get());
       return REASON;
     }
 
