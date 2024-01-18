@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 @Controller
 public class AdDecisionController {
   private static Logger logger = getLogger(AdDecisionController.class);
+  private static final String NO_WINNER_FOR_REQUEST = "No winner for request: {}";
   private final CandidateSelector candidateSelector;
   private final Auctioneer auctioneer;
   private final AdResponder responder;
@@ -54,7 +55,7 @@ public class AdDecisionController {
     if (winner.isEmpty()) {
       // if a partner requires a 204 NO CONTENT status, this would just become:
       // return HttpResponse.noContent();
-      logger.warn("No winner for request: " + adRequest);
+      logger.warn(NO_WINNER_FOR_REQUEST, adRequest);
       return HttpResponse.ok();
     }
 

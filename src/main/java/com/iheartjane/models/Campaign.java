@@ -39,4 +39,8 @@ public class Campaign {
 
   @EqualsAndHashCode.Include
   private float cpm;
+
+  public boolean hasNoKeywords() {
+    return targetKeywords == null || targetKeywords.isEmpty();
+  }
 }

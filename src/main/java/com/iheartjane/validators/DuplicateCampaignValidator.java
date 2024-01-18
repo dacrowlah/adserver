@@ -23,7 +23,7 @@ public class DuplicateCampaignValidator implements CampaignValidator {
   @Override
   public Optional<ValidationFailureReason> accept(Campaign campaign) {
     if (campaignService.exists(campaign)) {
-      logger.warn("Campaign Validation Failure: {}", REASON.get());
+      logger.warn(CAMPAIGN_VALIDATION_FAILURE_MSG, REASON.get());
       return REASON;
     }
 

@@ -44,15 +44,6 @@ public class AdDecisionControllerTest {
       0.001f
   );
 
-  private Campaign invalidCampaign = new Campaign(
-      null,
-      -1L,
-      -3L,
-      Set.of(), //empty set
-      -1L,
-      -0.001f
-  );
-
   @Test
   public void testDirectAdRequestSuccess() {
     AdRequest adRequest = new AdRequest();

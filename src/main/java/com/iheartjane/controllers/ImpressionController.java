@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 @Controller("/impression")
 public class ImpressionController {
   private static Logger logger = getLogger(ImpressionController.class);
+  private static final String UNKNOWN_IMPRESSION_SIGNATURE = "Unknown impression signature: {}";
   private final ImpressionService impressionService;
 
   public ImpressionController(ImpressionService impressionService) {
@@ -37,7 +38,7 @@ public class ImpressionController {
     if (impressionService.isNotValidImpression(signature)) {
       // in a production version, this would also have datadog metrics/alerts
       // when this happens... this would seem to indicate another problem.
-      logger.warn("Unknown impression signature: {}", signature);
+      logger.warn(UNKNOWN_IMPRESSION_SIGNATURE, signature);
       return HttpResponse.badRequest();
     }
 

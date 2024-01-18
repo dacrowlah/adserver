@@ -20,7 +20,7 @@ public class EndTimeValidator implements CampaignValidator {
     var endTime = campaign.getEndTimestamp();
 
     if (endTime <= 0 || endTime <= startTime) {
-      logger.warn("Campaign Validation Failure: {}", REASON.get());
+      logger.warn(CAMPAIGN_VALIDATION_FAILURE_MSG, REASON.get());
       return REASON;
     }
 

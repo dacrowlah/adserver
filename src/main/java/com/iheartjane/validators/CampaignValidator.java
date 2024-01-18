@@ -4,6 +4,7 @@ import com.iheartjane.models.Campaign;
 import java.util.Optional;
 
 public interface CampaignValidator {
+  String CAMPAIGN_VALIDATION_FAILURE_MSG = "Campaign Validation Failure: {}";
   enum ValidationFailureReason {
     INVALID_CPM,
     INVALID_START_TIME,

@@ -17,7 +17,7 @@ public class MaxImpressionValidator implements CampaignValidator {
   @Override
   public Optional<ValidationFailureReason> accept(Campaign campaign) {
     if (campaign.getMaxImpression() <= 0) {
-      logger.warn("Campaign Validation Failure: {}", REASON.get());
+      logger.warn(CAMPAIGN_VALIDATION_FAILURE_MSG, REASON.get());
       return REASON;
     }
 
