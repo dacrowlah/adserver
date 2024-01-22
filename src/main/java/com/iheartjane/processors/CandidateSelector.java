@@ -1,11 +1,10 @@
 package com.iheartjane.processors;
 
-import com.iheartjane.selectionfilters.SelectionFilter;
-import com.iheartjane.selectionfilters.SelectionFilter.FilterReason;
-import com.iheartjane.selectionfilters.ImpressionCap;
-import com.iheartjane.selectionfilters.StartAndEndTimesActive;
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.Campaign;
+import com.iheartjane.selectionfilters.ImpressionCap;
+import com.iheartjane.selectionfilters.SelectionFilter;
+import com.iheartjane.selectionfilters.StartAndEndTimesActive;
 import com.iheartjane.selectionfilters.TargetKeywords;
 import com.iheartjane.services.CampaignService;
 import jakarta.inject.Inject;
@@ -14,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Singleton
 public class CandidateSelector {
@@ -55,13 +55,9 @@ public class CandidateSelector {
    * costs.
    */
   private boolean isFiltered(Campaign campaign, AdRequest adRequest) {
-    Optional<FilterReason> reason = selectionFilters
+    return selectionFilters
         .stream()
-        .map(f -> f.accept(campaign, adRequest))
-        .filter(Optional::isPresent)
-        .map(Optional::get)
-        .findFirst();
-
-    return reason.isPresent();
+        .flatMap(f -> Stream.of(f.accept(campaign, adRequest)))
+        .anyMatch(Optional::isPresent);
   }
 }
