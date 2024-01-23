@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 
 @Singleton
 public class ImpressionService {
+  private static final String PREVIOUSLY_SEEN_IMPRESSION_MSG = "Previously seen impression, discarding {}";
   private static Logger logger = getLogger(ImpressionService.class);
   private Map<Integer, AtomicInteger> campaignCapping = new ConcurrentHashMap<>();
   private Set<ImpressionSignature> seenImpressionSignatures = ConcurrentHashMap.newKeySet();
@@ -23,7 +24,7 @@ public class ImpressionService {
        * don't want to double count the impressions - this would cause advertisers to be double+
        * charged.
        */
-      logger.warn("Previously seen impression, discarding {}", signature);
+      logger.warn(PREVIOUSLY_SEEN_IMPRESSION_MSG, signature);
       return;
     }
 

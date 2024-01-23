@@ -1,5 +1,7 @@
 package com.iheartjane.processors;
 
+import static java.lang.String.format;
+
 import com.iheartjane.api.AdResponder;
 import com.iheartjane.models.AdResponse;
 import com.iheartjane.models.Campaign;
@@ -36,6 +38,6 @@ public class DefaultAdResponder implements AdResponder {
 
     impressionService.recordSentImpression(signature);
 
-    return String.format(IMPRESSION_URL_FORMAT, signature.campaignId(), signature.impressionId());
+    return format(IMPRESSION_URL_FORMAT, signature.campaignId(), signature.impressionId());
   }
 }
