@@ -1,5 +1,6 @@
 package com.iheartjane.processors;
 
+import com.iheartjane.api.AdResponder;
 import com.iheartjane.models.AdResponse;
 import com.iheartjane.models.Campaign;
 import com.iheartjane.models.ImpressionSignature;
@@ -9,15 +10,16 @@ import jakarta.inject.Singleton;
 import java.util.UUID;
 
 @Singleton
-public class AdResponder {
+public class DefaultAdResponder implements AdResponder {
   private static final String IMPRESSION_URL_FORMAT = "http://localhost:8000/impression?campaignId=%s&impressionId=%s";
   private final ImpressionService impressionService;
 
   @Inject
-  public AdResponder(ImpressionService impressionService) {
+  public DefaultAdResponder(ImpressionService impressionService) {
     this.impressionService = impressionService;
   }
 
+  @Override
   public AdResponse accept(Campaign campaign) {
     return AdResponse
         .builder()

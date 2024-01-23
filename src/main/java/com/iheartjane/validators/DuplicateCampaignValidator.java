@@ -1,4 +1,4 @@
-package com.iheartjane.processors;
+package com.iheartjane.validators;
 
 import static com.iheartjane.api.CampaignValidator.ValidationFailureReason.DUPLICATE_CAMPAIGN_EXISTS;
 import static java.util.Optional.of;
