@@ -1,6 +1,6 @@
 package com.iheartjane.selectionfilters;
 
-import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.MISSING_TARGETED_KEYWORDS;
+import static com.iheartjane.api.SelectionFilter.FilterReason.MISSING_TARGETED_KEYWORDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

@@ -1,6 +1,6 @@
 package com.iheartjane.selectionfilters;
 
-import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.CAMPAIGN_IMPRESSION_CAP_HIT;
+import static com.iheartjane.api.SelectionFilter.FilterReason.CAMPAIGN_IMPRESSION_CAP_HIT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

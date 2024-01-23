@@ -1,7 +1,8 @@
 package com.iheartjane.processors;
 
+import com.iheartjane.api.CampaignValidationProcessor;
 import com.iheartjane.models.Campaign;
-import com.iheartjane.validators.CampaignValidator.ValidationFailureReason;
+import com.iheartjane.api.CampaignValidator.ValidationFailureReason;
 import com.iheartjane.validators.CampaignValidators;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -10,16 +11,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Singleton
-public class CampaignValidationProcessor {
+public class DefaultCampaignValidationProcessor implements CampaignValidationProcessor {
   private final CampaignValidators campaignValidators;
 
   @Inject
-  public CampaignValidationProcessor(
+  public DefaultCampaignValidationProcessor(
       CampaignValidators campaignValidators
   ) {
     this.campaignValidators = campaignValidators;
   }
 
+  @Override
   public List<ValidationFailureReason> accept(Campaign campaign) {
     return campaignValidators
         .stream()
@@ -27,6 +29,5 @@ public class CampaignValidationProcessor {
         .filter(Optional::isPresent)
         .map(Optional::get)
         .collect(Collectors.toList());
-
   }
 }

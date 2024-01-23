@@ -1,6 +1,6 @@
 package com.iheartjane.validators;
 
-import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.INVALID_START_TIME;
+import static com.iheartjane.api.CampaignValidator.ValidationFailureReason.INVALID_START_TIME;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

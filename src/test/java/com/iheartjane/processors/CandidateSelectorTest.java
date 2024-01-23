@@ -5,6 +5,7 @@ import static com.iheartjane.fixtures.Campaigns.validCampaign;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.iheartjane.api.CandidateSelector;
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.Campaign;
 import com.iheartjane.services.CampaignService;

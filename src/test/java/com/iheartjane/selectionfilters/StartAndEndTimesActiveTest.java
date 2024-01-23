@@ -1,6 +1,6 @@
 package com.iheartjane.selectionfilters;
 
-import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.CURRENT_TIMESTAMP_NOT_IN_RANGE;
+import static com.iheartjane.api.SelectionFilter.FilterReason.CURRENT_TIMESTAMP_NOT_IN_RANGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

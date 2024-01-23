@@ -1,9 +1,10 @@
-package com.iheartjane.validators;
+package com.iheartjane.processors;
 
-import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.DUPLICATE_CAMPAIGN_EXISTS;
+import static com.iheartjane.api.CampaignValidator.ValidationFailureReason.DUPLICATE_CAMPAIGN_EXISTS;
 import static java.util.Optional.of;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import com.iheartjane.api.CampaignValidator;
 import com.iheartjane.models.Campaign;
 import com.iheartjane.services.CampaignService;
 import jakarta.inject.Singleton;
