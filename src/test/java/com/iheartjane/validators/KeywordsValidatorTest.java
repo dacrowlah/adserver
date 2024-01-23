@@ -1,6 +1,6 @@
 package com.iheartjane.validators;
 
-import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.MISSING_KEYWORDS;
+import static com.iheartjane.api.CampaignValidator.ValidationFailureReason.MISSING_KEYWORDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

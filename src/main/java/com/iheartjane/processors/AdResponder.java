@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Singleton
 public class AdResponder {
+  private static final String IMPRESSION_URL_FORMAT = "http://localhost:8000/impression?campaignId=%s&impressionId=%s";
   private final ImpressionService impressionService;
 
   @Inject
@@ -17,9 +18,7 @@ public class AdResponder {
     this.impressionService = impressionService;
   }
 
-  private static final String IMPRESSION_URL_FORMAT = "http://localhost:8000/impression?campaignId=%s&impressionId=%s";
   public AdResponse accept(Campaign campaign) {
-
     return AdResponse
         .builder()
         .campaignId(campaign.getCampaignId())
@@ -28,7 +27,6 @@ public class AdResponder {
   }
 
   private String buildImpressionUrl(Campaign campaign) {
-
     var signature = new ImpressionSignature(
         campaign.getCampaignId(),
         UUID.randomUUID().toString()

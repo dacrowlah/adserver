@@ -3,7 +3,7 @@ package com.iheartjane.controllers;
 import com.iheartjane.models.Campaign;
 import com.iheartjane.models.CampaignCreationResponse;
 import com.iheartjane.services.CampaignService;
-import com.iheartjane.processors.CampaignValidationProcessor;
+import com.iheartjane.api.CampaignValidationProcessor;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;

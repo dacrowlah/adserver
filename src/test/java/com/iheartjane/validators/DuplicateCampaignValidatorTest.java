@@ -1,10 +1,11 @@
 package com.iheartjane.validators;
 
-import static com.iheartjane.validators.CampaignValidator.ValidationFailureReason.DUPLICATE_CAMPAIGN_EXISTS;
+import static com.iheartjane.api.CampaignValidator.ValidationFailureReason.DUPLICATE_CAMPAIGN_EXISTS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.iheartjane.models.Campaign;
+import com.iheartjane.processors.DuplicateCampaignValidator;
 import com.iheartjane.services.CampaignService;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;

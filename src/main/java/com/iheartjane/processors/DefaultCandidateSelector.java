@@ -1,8 +1,9 @@
 package com.iheartjane.processors;
 
+import com.iheartjane.api.CandidateSelector;
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.Campaign;
-import com.iheartjane.selectionfilters.SelectionFilter;
+import com.iheartjane.api.SelectionFilter;
 import com.iheartjane.selectionfilters.SelectionFilters;
 import com.iheartjane.services.CampaignService;
 import jakarta.inject.Inject;
@@ -10,15 +11,14 @@ import jakarta.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Singleton
-public class CandidateSelector {
+public class DefaultCandidateSelector implements CandidateSelector {
   private final CampaignService campaignService;
-  private List<SelectionFilter> selectionFilters;
+  private final List<SelectionFilter> selectionFilters;
 
   @Inject
-  public CandidateSelector(
+  public DefaultCandidateSelector(
       CampaignService campaignService,
       SelectionFilters selectionFilters
   ) {
@@ -26,6 +26,7 @@ public class CandidateSelector {
     this.selectionFilters = selectionFilters;
   }
 
+  @Override
   public List<Campaign> accept(AdRequest adRequest) {
     return campaignService
         .getCurrentCampaigns()
@@ -43,7 +44,7 @@ public class CandidateSelector {
   private boolean isFiltered(Campaign campaign, AdRequest adRequest) {
     return selectionFilters
         .stream()
-        .flatMap(f -> Stream.of(f.accept(campaign, adRequest)))
+        .map(f -> f.accept(campaign, adRequest))
         .anyMatch(Optional::isPresent);
   }
 }

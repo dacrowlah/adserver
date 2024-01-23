@@ -1,4 +1,4 @@
-package com.iheartjane.selectionfilters;
+package com.iheartjane.api;
 
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.Campaign;

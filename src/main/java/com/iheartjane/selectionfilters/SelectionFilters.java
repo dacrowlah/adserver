@@ -1,5 +1,6 @@
 package com.iheartjane.selectionfilters;
 
+import com.iheartjane.api.SelectionFilter;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.util.LinkedList;

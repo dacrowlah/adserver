@@ -1,4 +1,4 @@
-package com.iheartjane.validators;
+package com.iheartjane.api;
 
 import com.iheartjane.models.Campaign;
 import java.util.Optional;

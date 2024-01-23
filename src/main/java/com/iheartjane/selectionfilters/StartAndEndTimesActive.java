@@ -1,9 +1,10 @@
 package com.iheartjane.selectionfilters;
 
-import static com.iheartjane.selectionfilters.SelectionFilter.FilterReason.CURRENT_TIMESTAMP_NOT_IN_RANGE;
+import static com.iheartjane.api.SelectionFilter.FilterReason.CURRENT_TIMESTAMP_NOT_IN_RANGE;
 import static java.util.Optional.of;
 import static org.slf4j.LoggerFactory.getLogger;
 
+import com.iheartjane.api.SelectionFilter;
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.Campaign;
 import jakarta.inject.Singleton;

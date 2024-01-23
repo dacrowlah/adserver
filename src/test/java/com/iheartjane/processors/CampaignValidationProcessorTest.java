@@ -3,6 +3,7 @@ package com.iheartjane.processors;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.iheartjane.api.CampaignValidationProcessor;
 import com.iheartjane.models.Campaign;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
