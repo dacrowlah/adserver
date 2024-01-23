@@ -3,7 +3,6 @@ package com.iheartjane.services;
 import com.iheartjane.models.Campaign;
 import jakarta.inject.Singleton;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -25,10 +24,6 @@ public class CampaignService {
     campaign.setCampaignId(campaignId);
     currentCampaigns.add(campaign);
     campaignMap.put(campaignId, campaign);
-  }
-
-  public Optional<Campaign> get(Integer campaignId) {
-    return Optional.ofNullable(campaignMap.get(campaignId));
   }
 
   /**

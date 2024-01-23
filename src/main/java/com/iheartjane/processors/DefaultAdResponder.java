@@ -1,5 +1,7 @@
 package com.iheartjane.processors;
 
+import static java.lang.String.format;
+
 import com.iheartjane.api.AdResponder;
 import com.iheartjane.models.AdResponse;
 import com.iheartjane.models.Campaign;
@@ -11,7 +13,6 @@ import java.util.UUID;
 
 @Singleton
 public class DefaultAdResponder implements AdResponder {
-  private static final String IMPRESSION_URL_FORMAT = "http://localhost:8000/impression?campaignId=%s&impressionId=%s";
   private final ImpressionService impressionService;
 
   @Inject
@@ -36,6 +37,6 @@ public class DefaultAdResponder implements AdResponder {
 
     impressionService.recordSentImpression(signature);
 
-    return String.format(IMPRESSION_URL_FORMAT, signature.campaignId(), signature.impressionId());
+    return format(IMPRESSION_URL_FORMAT, signature.campaignId(), signature.impressionId());
   }
 }
