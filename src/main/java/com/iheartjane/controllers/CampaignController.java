@@ -34,7 +34,7 @@ public class CampaignController {
    *
    * @param campaign
    * @return for a successful campaign creation, a json message with the created campaign id is
-   * returned.  for an unsuccessful requet, an HTTP 400 BAD REQUEST is returned with an empty body
+   * returned.  for an unsuccessful request, an HTTP 400 BAD REQUEST is returned with an empty body
    */
   @Post("/campaign")
   public HttpResponse<CampaignCreationResponse> create(@Body Campaign campaign) {
