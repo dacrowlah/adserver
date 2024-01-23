@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @Singleton
 public class DefaultAdResponder implements AdResponder {
-  private static final String IMPRESSION_URL_FORMAT = "http://localhost:8000/impression?campaignId=%s&impressionId=%s";
   private final ImpressionService impressionService;
 
   @Inject
