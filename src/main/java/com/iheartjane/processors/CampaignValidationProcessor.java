@@ -1,44 +1,27 @@
 package com.iheartjane.processors;
 
 import com.iheartjane.models.Campaign;
-import com.iheartjane.validators.CampaignValidator;
 import com.iheartjane.validators.CampaignValidator.ValidationFailureReason;
-import com.iheartjane.validators.CpmValidator;
-import com.iheartjane.validators.DuplicateCampaignValidator;
-import com.iheartjane.validators.EndTimeValidator;
-import com.iheartjane.validators.KeywordsValidator;
-import com.iheartjane.validators.MaxImpressionValidator;
-import com.iheartjane.validators.StartTimeValidator;
+import com.iheartjane.validators.CampaignValidators;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Singleton
 public class CampaignValidationProcessor {
-  private final List<CampaignValidator> validators = new ArrayList<>();
+  private final CampaignValidators campaignValidators;
 
   @Inject
   public CampaignValidationProcessor(
-      CpmValidator cpmValidator,
-      EndTimeValidator endTimeValidator,
-      KeywordsValidator keywordsValidator,
-      MaxImpressionValidator maxImpressionValidator,
-      StartTimeValidator startTimeValidator,
-      DuplicateCampaignValidator duplicateCampaignValidator
+      CampaignValidators campaignValidators
   ) {
-    validators.add(cpmValidator);
-    validators.add(endTimeValidator);
-    validators.add(keywordsValidator);
-    validators.add(maxImpressionValidator);
-    validators.add(startTimeValidator);
-    validators.add(duplicateCampaignValidator);
+    this.campaignValidators = campaignValidators;
   }
 
   public List<ValidationFailureReason> accept(Campaign campaign) {
-    return validators
+    return campaignValidators
         .stream()
         .map(v -> v.accept(campaign))
         .filter(Optional::isPresent)
