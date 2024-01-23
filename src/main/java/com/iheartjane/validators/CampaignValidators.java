@@ -1,7 +1,6 @@
 package com.iheartjane.validators;
 
 import com.iheartjane.api.CampaignValidator;
-import com.iheartjane.processors.DuplicateCampaignValidator;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.util.ArrayList;

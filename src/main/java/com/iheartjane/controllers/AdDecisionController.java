@@ -4,7 +4,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import com.iheartjane.models.AdRequest;
 import com.iheartjane.models.AdResponse;
-import com.iheartjane.processors.AdResponder;
+import com.iheartjane.api.AdResponder;
 import com.iheartjane.api.Auctioneer;
 import com.iheartjane.api.CandidateSelector;
 import io.micronaut.http.HttpResponse;
