@@ -44,7 +44,7 @@ public class AdDecisionController {
    *
    * @return an AdResponse object, formatted as json by the time it gets to the client. If there is
    *         no ad for a given request, an HTTP 200 OK, with a blank body is returned to the client.
-   *         Note: Some external partners if there are any, may require an HTTP 204 NO CONTENT
+   *         Note: Some external partners, if there are any, may require an HTTP 204 NO CONTENT
    *         instead of an OK with blank body.
    */
   @Post("/addecision")

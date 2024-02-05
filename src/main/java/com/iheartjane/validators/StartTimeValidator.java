@@ -21,7 +21,7 @@ public class StartTimeValidator implements CampaignValidator {
     var endTime = campaign.getEndTimestamp();
 
     if (startTime <= 0 || startTime >= endTime) {
-      logger.warn(CAMPAIGN_VALIDATION_FAILURE_MSG, REASON.get());
+      logger.warn(CAMPAIGN_VALIDATION_FAILED_BECAUSE_OF, INVALID_START_TIME);
       return REASON;
     }
 
