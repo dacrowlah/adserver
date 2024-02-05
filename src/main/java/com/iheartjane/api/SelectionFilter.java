@@ -13,5 +13,5 @@ public interface SelectionFilter {
 
   String CAMPAIGN_ID_FILTERED_FOR = "CampaignId: {} Filtered: {}";
 
-  public Optional<FilterReason> accept(Campaign campaign, AdRequest adRequest);
+  Optional<FilterReason> accept(Campaign campaign, AdRequest adRequest);
 }

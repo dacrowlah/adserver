@@ -36,7 +36,7 @@ public class StartAndEndTimesActive implements SelectionFilter {
       return Optional.empty();
     }
 
-    logger.warn(CAMPAIGN_ID_FILTERED_FOR, campaign.getCampaignId(), REASON.get());
+    logger.warn(CAMPAIGN_ID_FILTERED_FOR, campaign.getCampaignId(), CURRENT_TIMESTAMP_NOT_IN_RANGE);
     return REASON;
   }
 }
